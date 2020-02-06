@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="css/vendor/bootstrap-datepicker.min.css">
+  <link rel="stylesheet" href="css/form.css">
 
 </head>
 
@@ -25,39 +26,59 @@
       <label class="custom-control-label" for="salutation_mr">Herr</label>
     </div>
 
+    <div class="alert alert-danger d-none" id="salutation_error" role="alert">
+      Bitte geben Sie die Anrede an.
+    </div>
+
     <div class="mb-4">
       <input type="text" id="formFirstName" class="form-control" placeholder="Vorname">
+    </div>
+    <div class="alert alert-danger d-none" id="firstname_error" role="alert">
+      Bitte geben Sie Ihren Vornamen an.
     </div>
 
     <div class="mb-4">
       <input type="text" id="formLastName" class="form-control" placeholder="Nachname">
     </div>
+    <div class="alert alert-danger d-none" id="lastname_error" role="alert">
+      Bitte geben Sie Ihren Nachnamen an.
+    </div>
 
     <div class="input-group date mb-4">
-      <input type="text" class="form-control" placeholder="Geburtstag" aria-label="Ihr Geburtstag" aria-describedby="basic-addon2">
+      <input type="text" class="form-control required" id="birthday" placeholder="Geburtstag" aria-label="Ihr Geburtstag" aria-describedby="basic-addon2">
       <div class="input-group-append">
         <span class="input-group-text" id="basic-addon2">&#128197;</span>
       </div>
     </div>
+    <div class="alert alert-danger d-none" id="birthday_error" role="alert">
+      Bitte geben Sie Ihr Geburtsdatum an.
+    </div>
 
     <div class="mb-4">
-      <input type="email" id="formEmail" class="form-control mb-4" placeholder="Email">
-
+      <input type="email" id="formEmail" class="form-control mb-4 required" placeholder="Email">
+    </div>
+    <div class="alert alert-danger d-none" id="email_error" role="alert">
+      Bitte geben Sie Ihre Email Adresse an.
     </div>
 
     <div class="mb-4">
       <input type="text" id="phoneNumber" class="form-control" placeholder="Telefonnummer">
     </div>
-
-    <div class="mb-4">
-      <input type="password" id="formPassword" class="form-control" placeholder="Passwort">
+    <div class="alert alert-danger d-none" id="phone_error" role="alert">
+      Bitte geben Sie Ihre Telefonnummer an.
     </div>
 
     <div class="mb-4">
-      <input type="password" id="pass_confirm" class="form-control mb-4" placeholder="Passwort bestätigen">
+      <input type="password" id="formPassword" class="form-control required" placeholder="Passwort">
+    </div>
+
+    <div class="mb-4">
+      <input type="password" id="pass_confirm" class="form-control mb-4 required" placeholder="Passwort bestätigen">
       <small id="passHelpBlock" class="form-text text-muted mb-4">Enthält mindestens 8 Zeichen</small>
     </div>
-
+    <div class="alert alert-danger d-none" id="password_error">
+      Bitte geben Sie ein Passwort an, welches den Kriterien entspricht.
+    </div>
 
     <label for="select_marketing">Wie haben Sie von uns gehört?</label>
     <select class="browser-default custom-select mb-4" id="select_marketing">
@@ -71,6 +92,9 @@
       <label for="select_marketing_info">Bitte genauer...</label>
       <textarea id="select_marketing_info" class="form-control mb-4" placeholder="Beschreiben Sie uns woher Sie uns kennen..." rows="5"></textarea>
     </div>
+    <div class="alert alert-danger d-none" id="select_marketing_error">
+      Bitte geben Sie die Details an, wie Sie von uns gehört haben.
+    </div>
 
     <div class="input-group">
       <div class="custom-file">
@@ -79,12 +103,18 @@
       </div>
     </div>
     <div class="mb-4">
-      <small id="ur_file_help">Wählen Sie bitte ein Foto für Ihr Profilbild aus</small>
+      <small id="file_help">Wählen Sie bitte ein Foto für Ihr Profilbild aus</small>
+    </div>
+    <div class="alert alert-danger d-none" id="file_error">
+      Bitte wählen Sie ein Bild von Ihrem PC/Gerät aus.
     </div>
 
     <div class="custom-control custom-checkbox mb-4">
-      <input type="checkbox" class="custom-control-input required" id="datenschutz">
+      <input type="checkbox" class="custom-control-input required" id="privacy">
       <label class="custom-control-label" for="datenschutz">Datenschutz akzeptiert?</label>
+    </div>
+    <div class="alert alert-danger d-none" id="privacy_error" role="alert">
+      Bitte stimmen Sie den Datenschutzbestimmungen zu.
     </div>
 
     <div class="custom-control custom-checkbox mb-4">
@@ -104,12 +134,41 @@
 
   </form>
 
+  <!-- Modal -->
+  <div class="modal fade" id="submission_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Formular wurde abgeschickt</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ... hier kommen die Formular-Daten:..
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Alles klar, schließen!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   <script src="js/vendor/bootstrap-datepicker.min.js"></script>
   <script src="js/vendor/locales/bootstrap-datepicker.de.min.js"></script>
   <script src="js/registration.js"></script>
+  <!--
+//var formFirstName  = $('#formFirstName');
+//var formLastName   = $('#formLastName');
+//var birthday = $('#birthday');
+//var phoneNumber = $('#phoneNumber');
+//var email = $('#formEmail');
+//var formPassword = $('#formPassword')
+//var pass_confirm = $('#pass_confirm')
+//var privacy = $('#privacy:checked');-->
 
 </body>
 
